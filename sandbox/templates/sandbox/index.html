@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+{% block content %}
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="alert"
+                            aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    {% if recipes %}
+        <ul>
+            {% for recipe in recipes %}
+                <li>
+                    <a href="{% url "sandbox:recipe_detail" recipe.id %}">{{ recipe.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No foods found.</p>
+    {% endif %}
+{% endblock content %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+{% block page_header %}
+    <h3>
+        Recipes under <i>{{ category }} </i>
+    </h3>
+{% endblock page_header %}
+{% block content %}
+    <a href="{% url "foodie_app:add_recipe_with_genre" category_id=category.id %}">+ Add Recipe</a>
+    <div class="mb-2 mt-2 pb-2 pt-2">
+        {% for recipe in recipes %}
+            <div class="card mb-3">
+                <h6 class="card-header">
+                    {{ recipe.name }}, <i>added: {{ recipe.date_added|date:"d M Y" }} </i>
+                </h6>
+                <div class="card-body">
+                    <p>Description:</p>
+                    {{ recipe.description }}
+                    <div class="row align-items-center mt-3">
+                        <div class="col">
+                            <small><a href="{% url "recipes:recipe_detail" recipe.id %}">View recipe details</a></small>
+                        </div>
+                        <div class="col-auto">
+                            {% if recipe.user.profile.profile_photo %}
+                            <img src="{{ recipe.user.profile.profile_photo.url}}" alt="User Photo"
+                            class="rounded-circe" width="30" height="30"/>
+                            {% endif %}
+                            <small> Created by: {{ recipe.user.username }}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock content %}

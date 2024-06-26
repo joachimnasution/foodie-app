@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if recipes %}
+<ul>
+{% for recipe in recipes %}
+<li>{{recipe.name}}</li>
+<li>{{recipe.description}}</li>
+{% endfor %}
+</ul>
+{% else %}
+<p>No recipe found</p>
+{% endif %}
+
+{% endblock %}
